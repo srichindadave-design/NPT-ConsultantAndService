@@ -1084,7 +1084,7 @@ window.updateTaskStatus = function(id, newStatus) {
 
     // Notify Admin via Email when Staff starts or completes a task
     if (newStatus === 'ongoing' && oldStatus !== 'ongoing') {
-        const adminEmail = 'srichindadave@gmail.com';
+        const adminEmail = 'nptconsultant2017@gmail.com';
         const subject = `NPT Portal: พนักงานเริ่มดำเนินภารกิจ [${task.title}]`;
         const html = `
             <div style="font-family: sans-serif; padding: 20px; color: #1e293b; max-width: 500px; border: 1px solid #e2e8f0; border-radius: 8px;">
@@ -1100,7 +1100,7 @@ window.updateTaskStatus = function(id, newStatus) {
         `;
         sendEmailNotificationTrigger(adminEmail, subject, html);
     } else if (newStatus === 'completed' && oldStatus !== 'completed') {
-        const adminEmail = 'srichindadave@gmail.com';
+        const adminEmail = 'nptconsultant2017@gmail.com';
         const subject = `NPT Portal: พนักงานเสร็จสิ้นภารกิจ [${task.title}]`;
         const html = `
             <div style="font-family: sans-serif; padding: 20px; color: #1e293b; max-width: 500px; border: 1px solid #e2e8f0; border-radius: 8px;">
