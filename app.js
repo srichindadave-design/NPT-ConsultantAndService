@@ -1423,7 +1423,7 @@ async function handleTaskSubmit(e) {
     const title = document.getElementById('task-title').value.trim();
     const desc = document.getElementById('task-desc').value.trim();
     const assigneeEmail = document.getElementById('task-assignee').value;
-    const notifyEmail = document.getElementById('task-notify-email').checked;
+    const notifyEmail = true;
 
     // Get assignee name from email
     const staffMember = state.staff.find(s => s.email === assigneeEmail);
@@ -1449,27 +1449,27 @@ async function handleTaskSubmit(e) {
             status: 'pending'
         };
         state.tasks.push(newTask);
-        
-        // Notify via email if checked
-        if (notifyEmail && assigneeEmail) {
-            const subject = `NPT Portal: มีการมอบหมายงานใหม่ [${title}]`;
-            const currentOrigin = 'https://npt-consultantandservice.onrender.com';
-            const html = `
-                <div style="font-family: sans-serif; padding: 20px; color: #1e293b; max-width: 500px; border: 1px solid #e2e8f0; border-radius: 8px;">
-                    <h3 style="color: #4f46e5; margin-bottom: 16px;">มอบหมายภารกิจใหม่</h3>
-                    <p>เรียนคุณ <strong>${assigneeName}</strong>,</p>
-                    <p>คุณได้รับมอบหมายภารกิจใหม่ในระบบ NPT Portal ดังรายละเอียดด้านล่าง:</p>
-                    <div style="background: #f8fafc; padding: 14px; border-radius: 6px; border-left: 4px solid #4f46e5; margin: 15px 0;">
-                        <p style="margin: 0 0 6px 0;"><strong>ชื่องาน:</strong> ${title}</p>
-                        <p style="margin: 0;"><strong>รายละเอียด:</strong> ${desc || '-'}</p>
-                    </div>
-                    <p style="font-size: 13px; color: #64748b; margin-top: 20px;">
-                        โปรดเข้าสู่ระบบได้ที่: <a href="${currentOrigin}" style="color: #4f46e5; text-decoration: underline; font-weight: 600;">${currentOrigin}</a> เพื่อกดเริ่มต้นดำเนินการและอัปเดตสถานะงาน
-                    </p>
+    }
+
+    // Notify via email (always send)
+    if (assigneeEmail) {
+        const subject = `NPT Portal: มีการมอบหมายงานใหม่ [${title}]`;
+        const currentOrigin = 'https://npt-consultantandservice.onrender.com';
+        const html = `
+            <div style="font-family: sans-serif; padding: 20px; color: #1e293b; max-width: 500px; border: 1px solid #e2e8f0; border-radius: 8px;">
+                <h3 style="color: #4f46e5; margin-bottom: 16px;">มอบหมายภารกิจใหม่</h3>
+                <p>เรียนคุณ <strong>${assigneeName}</strong>,</p>
+                <p>คุณได้รับมอบหมายภารกิจใหม่ในระบบ NPT Portal ดังรายละเอียดด้านล่าง:</p>
+                <div style="background: #f8fafc; padding: 14px; border-radius: 6px; border-left: 4px solid #4f46e5; margin: 15px 0;">
+                    <p style="margin: 0 0 6px 0;"><strong>ชื่องาน:</strong> ${title}</p>
+                    <p style="margin: 0;"><strong>รายละเอียด:</strong> ${desc || '-'}</p>
                 </div>
-            `;
-            sendEmailNotificationTrigger(assigneeEmail, subject, html);
-        }
+                <p style="font-size: 13px; color: #64748b; margin-top: 20px;">
+                    โปรดเข้าสู่ระบบได้ที่: <a href="${currentOrigin}" style="color: #4f46e5; text-decoration: underline; font-weight: 600;">${currentOrigin}</a> เพื่อกดเริ่มต้นดำเนินการและอัปเดตสถานะงาน
+                </p>
+            </div>
+        `;
+        sendEmailNotificationTrigger(assigneeEmail, subject, html);
     }
 
     saveDataToLocalStorage();
