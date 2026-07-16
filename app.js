@@ -1453,7 +1453,7 @@ async function handleTaskSubmit(e) {
         // Notify via email if checked
         if (notifyEmail && assigneeEmail) {
             const subject = `NPT Portal: มีการมอบหมายงานใหม่ [${title}]`;
-            const currentOrigin = window.location.origin;
+            const currentOrigin = 'https://npt-consultantandservice.onrender.com';
             const html = `
                 <div style="font-family: sans-serif; padding: 20px; color: #1e293b; max-width: 500px; border: 1px solid #e2e8f0; border-radius: 8px;">
                     <h3 style="color: #4f46e5; margin-bottom: 16px;">มอบหมายภารกิจใหม่</h3>
